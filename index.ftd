@@ -1,22 +1,18 @@
--- import: fastn-community.github.io/business-card/docs
--- import: fastn-community.github.io/business-card
+-- import: gsalunke.github.io/green-business-card/docs
+-- import: gsalunke.github.io/green-business-card
 -- import: fastn-stack.github.io/fastn-js/utils
 -- import: fastn-community.github.io/bling/note
 
 
 
 -- site-doc.doc-home: Business Card
-current-package: fastn-community.github.io/business-card
+current-package: gsalunke.github.io/green-business-card
 show-tabs: false
-github-url: https://github.com/fastn-community/business-card
+github-url: https://github.com/gsalunke/green-business-card
 site-title: Business Card
 
-This guide will demonstrate how to make simple business cards using `fastn`. 
 
-`fastn` is a beginner friendly web-development platform. 
-Check out [`fastn`](https://fastn.com/).
-
--- business-card.details: John Doe
+-- green-business-card.details: John Doe
 company-name: John Doe Pvt. Ltd.
 title: Software Developer
 phone-no: +91 12345 99999
@@ -25,76 +21,31 @@ address: 123, Block No. A-123, Times Square, Bangalore - 123456
 logo: $assets.files.assets.ipsum-logo.svg
 company-slogan: If you can type you can code
 website: www.johndoe.com
-
--- site-doc.header: Create your business card
-
--- ftd.desktop:
-
--- ftd.row:
-width: fill-container
-align-content: center
-spacing: space-between
-
--- ftd.column:
-width: fill-container
-spacing.fixed.px: 24
-
--- site-doc.markdown: 
-
-Build a new stand-alone business card from scratch
-
--- site-doc.button: Create a site with business card
-link: create/
+qr-code: $assets.files.assets.qr-code.png
 
 
--- end: ftd.column
+-- site-doc.header: Usage
 
--- ftd.column:
-width: fill-container
-spacing.fixed.px: 24
+- Add dependency inside you fastn web project
 
--- site-doc.markdown: 
+-- cb.code:
+lang: ftd
 
-Integrate this business card into your existing fastn project
+\-- fastn.dependency: gsalunke.github.io/green-business-card
 
--- site-doc.button: Add business card to your existing site
-link: integrate/
+-- site-doc.markdown:
 
--- end: ftd.column
+- import it inside you fastn web project
 
--- end: ftd.row
+-- cb.code:
+lang: ftd
 
--- end: ftd.desktop
+\-- import: gsalunke.github.io/green-business-card
 
--- ftd.mobile:
+-- cb.code: Use below sample code to create your own green business card
+lang: ftd
 
--- ftd.column:
-width: fill-container
-spacing.fixed.px: 24
-
--- site-doc.markdown: 
-
-Build a new stand-alone business card from scratch
-
--- site-doc.button: Create a site with business card
-link: create/
-;;link: https://github.com/fastn-community/my-card-template/generate
-
--- site-doc.markdown: 
-
-Integrate this business card into your existing fastn project
-
--- site-doc.button: Add business card to your existing site
-link: integrate/
-
--- end: ftd.column
-
--- end: ftd.mobile
-
-
--- cb.code: Example usage
-
-\-- business-card.details: John Doe
+\-- green-business-card.details: John Doe
 company-name: John Doe Pvt. Ltd.
 title: Software Developer
 phone-no: +91 12345 99999
@@ -279,14 +230,26 @@ optional ftd.image-src qr-code:
 optional string website:
 
 -- ftd.column:
+width.fixed.px: 600
+width if { ftd.device == "mobile" }: fill-container
+height.fixed.px: 297
+spacing.fixed.px: 10
+padding-vertical.px: 34
+border-width.px: 1
+border-color: $inherited.colors.border-strong
+background.solid: $inherited.colors.background.step-2
+z-index: 0
 
--- ftd.desktop:
+-- ftd.column:
+width: fill-container
+height: fill-container
+anchor: parent
+left.px: 0
+top.px: 0
+background.image: $bg-image
+z-index: 1
 
--- ftd.row:
-width.fixed.px: 700
-height.fixed.px: 350
-background.solid: $card-background-color
-spacing: space-around
+-- end: ftd.column
 
 -- ftd.image:
 if: { front.qr-code != NULL }
@@ -299,181 +262,87 @@ top.px: 12
 z-index: 2
 
 -- ftd.column:
-width.fixed.percent: 50
-height: fill-container
-align-content: center
-spacing: space-around
-
--- ftd.image: $front.logo
-if: { front.logo != NULL }
-max-width.fixed.px: 250
-
--- end: ftd.column
-
--- ftd.column:
-width.fixed.percent: 50
-height: fill-container
-align-content: center
-border-left-width.px: 2
-border-color: $inherited.colors.border-strong
-padding-horizontal.px: 24
-spacing.fixed.px: 8
+padding-left.px: 94
+align-content: left
+width: fill-container
 
 -- ftd.text: $front.name
-color: $inherited.colors.text-strong
-role: $inherited.types.heading-small
+role: $inherited.types.heading-medium
+color: $inherited.colors.text
 
 -- ftd.text: $front.title
-if: { front.title != NULL }
-color: $inherited.colors.text
-role: $inherited.types.copy-regular
-
--- ftd.text: $front.phone-no
-if: { front.phone-no != NULL }
-margin-top.px: 40
-color: $inherited.colors.text
-role: $inherited.types.copy-regular
-
--- ftd.text: $front.email
-if: { front.email != NULL }
-margin-top.px if { front.phone-no == NULL }: 50
-color: $inherited.colors.text
 role: $inherited.types.fine-print
+color: $inherited.colors.text
+padding-left.px: 2
 
 -- ftd.column:
-width: fill-container
-border-top-width.px: 1
-border-color: $inherited.colors.border-strong
-align-content: center
-padding-top.px: 8
-margin-top.px: 8
+width.fixed.percent: 70
 spacing.fixed.px: 8
+margin-top.px: 34
 
--- ftd.text: $front.company-name
-if: { front.address != NULL }
-margin-top.px if { front.phone-no == NULL && front.email == NULL }: 50
-color: $inherited.colors.text
-role: $inherited.types.button-medium
-text-align: center
+-- ftd.row:
+if: { front.phone-no != NULL }
+spacing.fixed.px: 16
 
--- ftd.text: $front.address
-if: { front.address != NULL }
-margin-top.px if { front.phone-no == NULL && front.email == NULL }: 50
-color: $inherited.colors.text
+-- ftd.image:
+src: $assets.files.assets.phone-icon.svg
+width.fixed.px: 24
+height.fixed.px: 24
+
+-- ftd.text: $front.phone-no
 role: $inherited.types.fine-print
-text-align: center
-
--- ftd.text: $front.website
-if: { front.address != NULL }
-margin-top.px if { front.phone-no == NULL && front.email == NULL }: 50
 color: $inherited.colors.text
-role: $inherited.types.fine-print
-text-align: center
-
--- end: ftd.column
-
--- end: ftd.column
 
 -- end: ftd.row
 
--- end: ftd.desktop
-
--- ftd.mobile:
-
--- ftd.column:
-width: fill-container
-height.fixed.px: 470
-background.solid: $card-background-color
-spacing: space-around
+-- ftd.row:
+if: { front.email != NULL }
+spacing.fixed.px: 16
 
 -- ftd.image:
-if: { front.qr-code != NULL }
-src: $front.qr-code
-width.fixed.px: 64
-height.fixed.px: 64
-anchor: parent
-right.px: 12
-top.px: 12
-z-index: 2
-
--- ftd.column:
-width: fill-container
-align-content: center
-padding-vertical.px: 24
-
--- ftd.image: $front.logo
-if: { front.logo != NULL }
-width.fixed.px: 250
-
--- end: ftd.column
-
--- ftd.column:
-width: fill-container
-height: fill-container
-align-content: center
-border-top-width.px: 2
-border-color: $inherited.colors.border-strong
-padding-horizontal.px: 24
-spacing.fixed.px: 8
-
--- ftd.text: $front.name
-color: $inherited.colors.text-strong
-role: $inherited.types.heading-small
-
--- ftd.text: $front.title
-if: { front.title != NULL }
-color: $inherited.colors.text
-role: $inherited.types.copy-regular
-
--- ftd.text: $front.phone-no
-if: { front.phone-no != NULL }
-margin-top.px: 40
-color: $inherited.colors.text
-role: $inherited.types.copy-regular
+src: $assets.files.assets.email-icon.svg
+width.fixed.px: 24
+height.fixed.px: 24
 
 -- ftd.text: $front.email
-if: { front.email != NULL }
-margin-top.px if { front.phone-no == NULL }: 50
-color: $inherited.colors.text
 role: $inherited.types.fine-print
-
--- ftd.column:
-width: fill-container
-border-top-width.px: 1
-border-color: $inherited.colors.border-strong
-align-content: center
-padding-top.px: 8
-margin-top.px: 8
-spacing.fixed.px: 8
-
--- ftd.text: $front.company-name
-if: { front.address != NULL }
-margin-top.px if { front.phone-no == NULL && front.email == NULL }: 50
 color: $inherited.colors.text
-role: $inherited.types.button-medium
-text-align: center
 
--- ftd.text: $front.address
-if: { front.address != NULL }
-margin-top.px if { front.phone-no == NULL && front.email == NULL }: 50
-color: $inherited.colors.text
-role: $inherited.types.fine-print
-text-align: center
+-- end: ftd.row
+
+-- ftd.row:
+if: { front.website != NULL }
+spacing.fixed.px: 16
+
+-- ftd.image:
+src: $assets.files.assets.web-icon.svg
+width.fixed.px: 24
+height.fixed.px: 24
 
 -- ftd.text: $front.website
-if: { front.address != NULL }
-margin-top.px if { front.phone-no == NULL && front.email == NULL }: 50
-color: $inherited.colors.text
 role: $inherited.types.fine-print
-text-align: center
+color: $inherited.colors.text
+
+-- end: ftd.row
+
+-- ftd.row:
+if: { front.address != NULL }
+spacing.fixed.px: 16
+
+-- ftd.image:
+src: $assets.files.assets.map-icon.svg
+width.fixed.px: 24
+height.fixed.px: 24
+
+-- ftd.text: $front.address
+role: $inherited.types.fine-print
+color: $inherited.colors.text
+
+-- end: ftd.row
 
 -- end: ftd.column
 
 -- end: ftd.column
-
--- end: ftd.column
-
--- end: ftd.mobile
 
 -- end: ftd.column
 
@@ -502,57 +371,32 @@ optional ftd.image-src qr-code:
 optional string website:
 
 -- ftd.column:
-width: fill-container
-
--- ftd.desktop:
-
--- ftd.row:
-width.fixed.px: 700
-height.fixed.px: 350
-background.solid: $card-background-color
-spacing: space-around
-align-content: center
+width.fixed.px: 600
+width if { ftd.device == "mobile" }: fill-container
+height.fixed.px: 297
+spacing.fixed.px: 10
+background.solid: $inherited.colors.background.step-2
+padding-vertical.px: 34
+border-width.px: 1
+border-color: $inherited.colors.border-strong
+z-index: 0
 
 -- ftd.column:
 width: fill-container
 height: fill-container
-margin.px: 50
-border-left-width.px: 8
-border-right-width.px: 8
-border-style: double
-border-color: $inherited.colors.border-strong
-align-content: center
-
--- ftd.image: $back.logo
-if: { back.logo != NULL }
-max-width.fixed.px: 250
-
--- ftd.text: $back.company-slogan
-if: { back.company-slogan != NULL }
-role: $inherited.types.copy-regular
-color: $inherited.colors.text-strong
-width: fill-container
-text-align: center
-margin-top.px: 16
+anchor: parent
+left.px: 0
+top.px: 0
+background.image: $bg-image
+z-index: 1
 
 -- end: ftd.column
 
--- end: ftd.row
-
--- end: ftd.desktop
-
--- ftd.mobile:
-
--- ftd.column:
-width: fill-container
-height.fixed.px: 470
-background.solid: $card-background-color
-spacing: space-around
-
 -- ftd.column:
 width: fill-container
 height: fill-container
 align-content: center
+spacing.fixed.px: 8
 
 -- ftd.image: $back.logo
 if: { back.logo != NULL }
@@ -561,17 +405,18 @@ width.fixed.px: 250
 -- ftd.text: $back.company-slogan
 if: { back.company-slogan != NULL }
 role: $inherited.types.copy-regular
-color: $inherited.colors.text-strong
-width: fill-container
-text-align: center
-margin-top.px: 16
+color: $inherited.colors.text
 
 -- end: ftd.column
-
--- end: ftd.column
-
--- end: ftd.mobile
 
 -- end: ftd.column
 
 -- end: back
+
+
+
+
+-- ftd.background-image bg-image:
+src: $assets.files.assets.background-image.png
+repeat: no-repeat
+background-size: cover
