@@ -4,6 +4,7 @@
 -- import: fastn-community.github.io/bling/note
 
 
+-- $site-doc.copyright-info: Copyright © 2023 - [gsalunke ](https://gsalunke.github.io/green-leaf-card)
 
 -- site-doc.doc-home: Business Card
 current-package: gsalunke.github.io/green-business-card
