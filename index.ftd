@@ -1,0 +1,422 @@
+-- import: gsalunke.github.io/green-business-card/docs
+-- import: gsalunke.github.io/green-business-card
+-- import: fastn-stack.github.io/fastn-js/utils
+-- import: fastn-community.github.io/bling/note
+
+
+
+-- site-doc.doc-home: Business Card
+current-package: gsalunke.github.io/green-business-card
+show-tabs: false
+github-url: https://github.com/gsalunke/green-business-card
+site-title: Business Card
+
+
+-- green-business-card.details: John Doe
+company-name: John Doe Pvt. Ltd.
+title: Software Developer
+phone-no: +91 12345 99999
+email: john@johndoe.com
+address: 123, Block No. A-123, Times Square, Bangalore - 123456
+logo: $assets.files.assets.ipsum-logo.svg
+company-slogan: If you can type you can code
+website: www.johndoe.com
+qr-code: $assets.files.assets.qr-code.png
+
+
+-- site-doc.header: Usage
+
+- Add dependency inside you fastn web project
+
+-- cb.code:
+lang: ftd
+
+\-- fastn.dependency: gsalunke.github.io/green-business-card
+
+-- site-doc.markdown:
+
+- import it inside you fastn web project
+
+-- cb.code:
+lang: ftd
+
+\-- import: gsalunke.github.io/green-business-card
+
+-- cb.code: Use below sample code to create your own green business card
+lang: ftd
+
+\-- green-business-card.details: John Doe
+company-name: John Doe Pvt. Ltd.
+title: Software Developer
+phone-no: +91 12345 99999
+email: john@johndoe.com
+address: 123, Block No. A-123, Times Square, Bangalore - 123456
+logo: $assets.files.assets.ipsum-logo.svg
+company-slogan: If you can type you can code
+website: www.johndoe.com
+
+-- end: site-doc.doc-home
+
+;; ----------------------- VARIABLES ----------------------------------
+
+-- string front-sample-code:
+
+\-- import: fastn-community.github.io/business-card
+
+\-- business-card.front: John Doe
+title: Software Developer
+email: john@xyz.com
+address: 123 Anywhere, Any City
+logo: $assets.files.assets.ipsum-logo.svg
+
+-- string back-sample-code:
+
+\-- import: fastn-community.github.io/business-card
+
+\-- business-card.back: 
+logo: $assets.files.assets.ipsum-logo.svg
+company-slogan: If you can type you can code
+
+
+-- ftd.color card-background-color:
+light: #f4edd0
+dark: black
+
+;; ---------------------- DEFAULT CARD COMPONENTS -------------------------
+
+-- component details:
+caption name:
+optional string company-name:
+optional string title:
+optional string phone-no:
+optional string email:
+optional string address:
+optional ftd.image-src logo:
+optional ftd.image-src avatar:
+optional string company-slogan:
+optional ftd.image-src qr-code:
+optional string website:
+boolean $open: false
+private string card-id: this-card
+boolean $mouse-in: false
+boolean $on-hover: false
+boolean $mouse-over: false
+
+-- ftd.column:
+width if { ftd.device == "mobile" }: fill-container
+
+-- ftd.row:
+width if { ftd.device == "mobile" }: fill-container
+spacing.fixed.px: 24
+
+-- ftd.column:
+width: fill-container
+id: $details.card-id
+
+-- ftd.column:
+if: { !details.open }
+width: fill-container
+height: fill-container
+
+-- front: $details.name
+company-name: $details.company-name
+title: $details.title
+phone-no: $details.phone-no
+email: $details.email
+address: $details.address
+logo: $details.logo
+avatar: $details.avatar
+company-slogan: $details.company-slogan
+qr-code: $details.qr-code
+website: $details.website
+
+-- end: ftd.column
+
+-- ftd.column:
+if: { details.open }
+width: fill-container
+height: fill-container
+
+-- back: $details.name
+company-name: $details.company-name
+title: $details.title
+phone-no: $details.phone-no
+email: $details.email
+address: $details.address
+logo: $details.logo
+avatar: $details.avatar
+company-slogan: $details.company-slogan
+qr-code: $details.qr-code
+website: $details.website
+
+-- end: ftd.column
+
+-- ftd.image:
+src: $assets.files.assets.fastn-badge-white.svg
+width.fixed.px: 140
+link: https://fastn.com/
+align-self: center
+margin-top.px: 8
+open-in-new-tab: true
+
+-- end: ftd.column
+
+-- ftd.column:
+spacing.fixed.px: 12
+align-content: center
+
+-- ftd.image:
+if: { !details.mouse-in }
+src: $assets.files.assets.flip-icon.svg
+width.fixed.px: 24
+height.fixed.px: 24
+$on-click$: $ftd.toggle($a = $details.open)
+$on-mouse-enter$: $ftd.set-bool($a = $details.mouse-in, v = true)
+
+-- ftd.image:
+if: { details.mouse-in }
+src: $assets.files.assets.flip-icon-hover.svg
+width.fixed.px: 24
+height.fixed.px: 24
+$on-click$: $ftd.toggle($a = $details.open)
+$on-mouse-leave$: $ftd.set-bool($a = $details.mouse-in, v = false)
+
+-- ftd.image:
+if: { details.open }
+src: $assets.files.assets.download.svg
+src if { details.mouse-over }: $assets.files.assets.download-hover.svg
+width.fixed.px: 30
+$on-click$: $utils.download-as-image(element_id = $details.card-id, filename = card-back.jpg)
+$on-mouse-enter$: $ftd.set-bool($a = $details.mouse-over, v = true)
+$on-mouse-leave$: $ftd.set-bool($a = $details.mouse-over, v = false)
+
+-- ftd.image:
+if: { !details.open }
+src: $assets.files.assets.download.svg
+src if { details.on-hover }: $assets.files.assets.download-hover.svg
+width.fixed.px: 30
+$on-click$: $utils.download-as-image(element_id = $details.card-id, filename = card-front.jpg)
+$on-mouse-enter$: $ftd.set-bool($a = $details.on-hover, v = true)
+$on-mouse-leave$: $ftd.set-bool($a = $details.on-hover, v = false)
+
+-- end: ftd.column
+
+-- end: ftd.row
+
+-- end: ftd.column
+
+-- end: details
+
+
+
+
+
+
+
+
+
+
+-- component front:
+caption name:
+optional string company-name:
+optional string title:
+optional string phone-no:
+optional string email:
+optional string address:
+optional ftd.image-src logo:
+optional ftd.image-src avatar:
+optional string company-slogan:
+optional ftd.image-src qr-code:
+optional string website:
+
+-- ftd.column:
+width.fixed.px: 600
+width if { ftd.device == "mobile" }: fill-container
+height.fixed.px: 297
+spacing.fixed.px: 10
+padding-vertical.px: 34
+border-width.px: 1
+border-color: $inherited.colors.border-strong
+background.solid: $inherited.colors.background.step-2
+z-index: 0
+
+-- ftd.column:
+width: fill-container
+height: fill-container
+anchor: parent
+left.px: 0
+top.px: 0
+background.image: $bg-image
+z-index: 1
+
+-- end: ftd.column
+
+-- ftd.image:
+if: { front.qr-code != NULL }
+src: $front.qr-code
+width.fixed.px: 64
+height.fixed.px: 64
+anchor: parent
+right.px: 12
+top.px: 12
+z-index: 2
+
+-- ftd.column:
+padding-left.px: 94
+align-content: left
+width: fill-container
+
+-- ftd.text: $front.name
+role: $inherited.types.heading-medium
+color: $inherited.colors.text
+
+-- ftd.text: $front.title
+role: $inherited.types.fine-print
+color: $inherited.colors.text
+padding-left.px: 2
+
+-- ftd.column:
+width.fixed.percent: 70
+spacing.fixed.px: 8
+margin-top.px: 34
+
+-- ftd.row:
+if: { front.phone-no != NULL }
+spacing.fixed.px: 16
+
+-- ftd.image:
+src: $assets.files.assets.phone-icon.svg
+width.fixed.px: 24
+height.fixed.px: 24
+
+-- ftd.text: $front.phone-no
+role: $inherited.types.fine-print
+color: $inherited.colors.text
+
+-- end: ftd.row
+
+-- ftd.row:
+if: { front.email != NULL }
+spacing.fixed.px: 16
+
+-- ftd.image:
+src: $assets.files.assets.email-icon.svg
+width.fixed.px: 24
+height.fixed.px: 24
+
+-- ftd.text: $front.email
+role: $inherited.types.fine-print
+color: $inherited.colors.text
+
+-- end: ftd.row
+
+-- ftd.row:
+if: { front.website != NULL }
+spacing.fixed.px: 16
+
+-- ftd.image:
+src: $assets.files.assets.web-icon.svg
+width.fixed.px: 24
+height.fixed.px: 24
+
+-- ftd.text: $front.website
+role: $inherited.types.fine-print
+color: $inherited.colors.text
+
+-- end: ftd.row
+
+-- ftd.row:
+if: { front.address != NULL }
+spacing.fixed.px: 16
+
+-- ftd.image:
+src: $assets.files.assets.map-icon.svg
+width.fixed.px: 24
+height.fixed.px: 24
+
+-- ftd.text: $front.address
+role: $inherited.types.fine-print
+color: $inherited.colors.text
+
+-- end: ftd.row
+
+-- end: ftd.column
+
+-- end: ftd.column
+
+-- end: ftd.column
+
+-- end: front
+
+
+
+
+
+
+
+
+
+
+-- component back:
+optional caption name:
+optional string company-name:
+optional string title:
+optional string phone-no:
+optional string email:
+optional string address:
+optional ftd.image-src logo:
+optional ftd.image-src avatar:
+optional string company-slogan:
+optional ftd.image-src qr-code:
+optional string website:
+
+-- ftd.column:
+width.fixed.px: 600
+width if { ftd.device == "mobile" }: fill-container
+height.fixed.px: 297
+spacing.fixed.px: 10
+background.solid: $inherited.colors.background.step-2
+padding-vertical.px: 34
+border-width.px: 1
+border-color: $inherited.colors.border-strong
+z-index: 0
+
+-- ftd.column:
+width: fill-container
+height: fill-container
+anchor: parent
+left.px: 0
+top.px: 0
+background.image: $bg-image
+z-index: 1
+
+-- end: ftd.column
+
+-- ftd.column:
+width: fill-container
+height: fill-container
+align-content: center
+spacing.fixed.px: 8
+
+-- ftd.image: $back.logo
+if: { back.logo != NULL }
+width.fixed.px: 250
+
+-- ftd.text: $back.company-slogan
+if: { back.company-slogan != NULL }
+role: $inherited.types.copy-regular
+color: $inherited.colors.text
+
+-- end: ftd.column
+
+-- end: ftd.column
+
+-- end: back
+
+
+
+
+-- ftd.background-image bg-image:
+src: $assets.files.assets.background-image.png
+repeat: no-repeat
+background-size: cover
