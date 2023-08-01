@@ -27,7 +27,7 @@ qr-code: $assets.files.assets.qr-code.png
 
 -- site-doc.header: Usage
 
-- Add dependency inside you fastn web project
+- Add dependency inside your `FASTN.ftd` of fastn web project
 
 -- cb.code:
 lang: ftd
@@ -36,7 +36,7 @@ lang: ftd
 
 -- site-doc.markdown:
 
-- import it inside you fastn web project
+- import it inside your `.ftd` file of fastn web project
 
 -- cb.code:
 lang: ftd
