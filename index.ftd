@@ -6,11 +6,11 @@
 
 -- $site-doc.copyright-info: Copyright © 2023
 
--- site-doc.doc-home: Business Card
+-- site-doc.doc-home: Green Business Card
 current-package: gsalunke.github.io/green-business-card
 show-tabs: false
 github-url: https://github.com/gsalunke/green-business-card
-site-title: Business Card
+site-title: Green Business Card
 
 
 -- green-business-card.details: John Doe
