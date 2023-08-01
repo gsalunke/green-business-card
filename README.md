@@ -1,1 +1,1 @@
-This package will serve as a module package for business cards.
+Green Business Card package is built using [fastn](https://fastn.com/).
