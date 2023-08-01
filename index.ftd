@@ -4,7 +4,7 @@
 -- import: fastn-community.github.io/bling/note
 
 
--- $site-doc.copyright-info: Copyright © 2023 - [gsalunke ](https://gsalunke.github.io/green-leaf-card)
+-- $site-doc.copyright-info: Copyright © 2023
 
 -- site-doc.doc-home: Business Card
 current-package: gsalunke.github.io/green-business-card
@@ -55,6 +55,7 @@ address: 123, Block No. A-123, Times Square, Bangalore - 123456
 logo: $assets.files.assets.ipsum-logo.svg
 company-slogan: If you can type you can code
 website: www.johndoe.com
+qr-code: $assets.files.assets.qr-code.png
 
 -- end: site-doc.doc-home
 
